@@ -77,8 +77,8 @@ const Navbar: React.FC = () => {
         </li>
       </ul> */}
         <button
-          onClick={() => router.push("/search")}
-          className="hidden md:block bg-[#00796B] text-white px-4 py-2 rounded-lg hover:bg-[#009688] text-lg font-semibold"
+          onClick={() => router.push("/ngo-search")}
+          className="hidden md:block bg-[#00796B] text-white px-4 py-2 rounded-lg hover:bg-[#009688] text-lg font-semibold cursor-pointer"
         >
           Find Nearby NGOs
         </button>

@@ -5,13 +5,13 @@ import { motion } from "motion/react";
 const cardsData = [
   {
     title: "On Spot Care",
-    src: "/spot-care.jpg",
+    src: "/homepage/spot-care.jpg",
     description:
       "Providing immediate assistance to animals in distress, Connecting you to nearby NGOs and care providers. Dedicated to ensuring timely support and rescue, Because every life deserves compassion and care",
   },
   {
     title: "NGOs Directory",
-    src: "ngo-directory.jpg",
+    src: "/homepage/ngo-directory.jpg",
     description:
       "Explore our extensive directory of NGOs committed to animal welfare and rescue. Find the right support near you, because every animal deserves care.",
   },
@@ -23,7 +23,7 @@ const cardsData = [
   },
   {
     title: "Donation",
-    src: "/donation.png",
+    src: "/homepage/donation.png",
     description:
       "Explore our extensive directory of NGOs committed to animal welfare and rescue. Find the right support near you, because every animal deserves care.",
   },
