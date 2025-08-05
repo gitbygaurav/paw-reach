@@ -5,19 +5,17 @@ import { cities, states } from "../../lib/cities";
 import NgoCard from "../../ui/NgoCard";
 import api from "../utils/api";
 import Loader from "../../ui/Loader";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
+import AutoDetectLocation from "../_components/ngo-search/AutoDetectLocation";
 
-const MapWithNoSSR = dynamic(
-  () => import('../_components/Map'),
-  { 
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-[500px] bg-gray-100 flex items-center justify-center">
-        <Loader />
-      </div>
-    )
-  }
-);
+const MapWithNoSSR = dynamic(() => import("../_components/Map"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[500px] bg-gray-100 flex items-center justify-center">
+      <Loader />
+    </div>
+  ),
+});
 
 // First, add types for better type safety
 type NGO = {
@@ -43,7 +41,7 @@ const SearchPage: React.FC = () => {
     if (city) {
       setLoading(true);
       setError(null);
-      fetch(`${api}/ngos?city=${(city)}`)
+      fetch(`${api}/ngos?city=${city}`)
         .then(async (response) => {
           const result = await response.json();
           if (!response.ok) {
@@ -76,6 +74,11 @@ const SearchPage: React.FC = () => {
     {}
   );
 
+  const handleLocationDetected = (locationData: { city: any; state: any }) => {
+    console.log(locationData.city); // e.g., "New York"
+    console.log(locationData.state);
+  };
+
   useEffect(() => {
     return () => {
       const mapElement = document.getElementById("map");
@@ -103,11 +106,7 @@ const SearchPage: React.FC = () => {
     }
 
     if (error) {
-      return (
-        <p className="col-span-3 text-center text-red-500">
-          {error}
-        </p>
-      );
+      return <p className="col-span-3 text-center text-red-500">{error}</p>;
     }
 
     if (Array.isArray(data) && data.length > 0) {
@@ -134,13 +133,8 @@ const SearchPage: React.FC = () => {
   return (
     <div className="bg-gray-100 flex flex-col items-center px-8 pt-32 pb-8">
       <div className="w-full flex justify-between">
-
-      <h2 className="text-2xl font-bold self-start">Search for NGOs</h2>
-      <button
-        className="bg-blue-500 text-white font-semibold px-6 py-2 rounded-md shadow hover:bg-blue-600 transition-colors duration-200 cursor-pointer"
-      >
-        Auto Detect
-      </button>
+        <h2 className="text-2xl font-bold self-start">Search for NGOs</h2>
+        {/* <AutoDetectLocation onLocationDetected={handleLocationDetected} /> */}
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
         <select

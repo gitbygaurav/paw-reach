@@ -10,7 +10,7 @@ const ReportButton: React.FC<ReportButtonProps> = ({id}) => {
     const router = useRouter();
   return (
     <button
-      className="w-full bg-green-500 hover:bg-green-600 active:scale-105 text-white text-base font-medium rounded py-1 mt-2"
+      className="w-full bg-green-500 hover:bg-green-600 active:scale-105 text-white text-base font-medium rounded py-1 mt-2 cursor-pointer"
       onClick={() => router.push(`/report-incident/${id}`)}
     >
       Report An Incident
