@@ -28,7 +28,7 @@ const Navbar: React.FC = () => {
             alt="paw-reach-logo"
           />
         </Link>
-        <div className="md:hidden">
+        {/* <div className="">
           <button onClick={toggleMenu} className="focus:outline-none">
             <svg
               className="w-6 h-6"
@@ -49,7 +49,7 @@ const Navbar: React.FC = () => {
               ></path>
             </svg>
           </button>
-        </div>
+        </div> */}
         <button
           onClick={() => router.push("/ngo-search")}
           className="hidden md:block bg-[#00796B] text-white px-4 py-2 rounded-lg hover:bg-[#009688] text-lg font-semibold cursor-pointer"
