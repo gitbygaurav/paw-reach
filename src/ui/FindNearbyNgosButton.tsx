@@ -12,7 +12,7 @@ const FindNearbyButton: React.FC<FindNearbyButtonProps> = ({ className }) => {
   const router = useRouter();
   return (
     <motion.button
-      onClick={() => router.push("/search")}
+      onClick={() => router.push("/ngo-search")}
       className={cn("bg-[#00796B] text-white px-4 py-2 rounded-lg hover:bg-[#009688] text-lg font-semibold cursor-pointer mt-4", className)}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

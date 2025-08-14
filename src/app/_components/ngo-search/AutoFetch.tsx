@@ -74,16 +74,16 @@ const AutoDetectLocation: React.FC<AutoDetectLocationProps> = ({ onLocationDetec
       let errorMessage = 'Failed to detect location';
 
       if (typeof err === 'object' && err !== null) {
-        if ('code' in err && typeof (err as any).code === 'number') {
-          if ((err as any).code === 1) {
+        if ('code' in err && typeof (err as { code: number }).code === 'number') {
+          if ((err as { code: number }).code === 1) {
             errorMessage = 'Location access denied. Please enable location permissions.';
-          } else if ((err as any).code === 2) {
+          } else if ((err as { code: number }).code === 2) {
             errorMessage = 'Location information unavailable.';
-          } else if ((err as any).code === 3) {
+          } else if ((err as { code: number }).code === 3) {
             errorMessage = 'Location request timed out.';
           }
-        } else if ('message' in err && typeof (err as any).message === 'string') {
-          errorMessage = (err as any).message;
+        } else if ('message' in err && typeof (err as { message: string }).message === 'string') {
+          errorMessage = (err as { message: string }).message;
         }
       }
 

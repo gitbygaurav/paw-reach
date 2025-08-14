@@ -72,50 +72,76 @@ const ReportIncident: React.FC = () => {
 
   const handleAutoDetectLocation = () => {
     setIsDetectingLocation(true);
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-          setLocationCords([latitude, longitude]);
-          try {
-            const response = await fetch(
-              `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=2a746a0ddbd94c3a9eef0823539c7c1a`
-            );
-            const data = await response.json();
-            if (data.results && data.results.length > 0) {
-              const address = data.results[0].formatted;
-              setLocation(address);
-              form.setValue("location", address, {
-                shouldValidate: true,
-                shouldDirty: true,
-                shouldTouch: true,
-              });
-            } else {
-              form.setError("location", {
-                message: "Unable to retrieve address.",
-              });
-            }
-          } catch (error) {
-            form.setError("location", {
-              message: "Error fetching address. Please enter manually.",
-            });
-          } finally {
-            setIsDetectingLocation(false);
-          }
-        },
-        (error) => {
-          form.setError("location", {
-            message: "Error: Please enable location services.",
-          });
-          setIsDetectingLocation(false);
-        }
-      );
-    } else {
+    
+    if (!navigator.geolocation) {
       form.setError("location", {
         message: "Geolocation is not supported by this browser.",
       });
       setIsDetectingLocation(false);
+      return;
     }
+
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 10000, // 10 seconds timeout
+      maximumAge: 300000, // Accept cached position up to 5 minutes old
+    };
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        setLocationCords([latitude, longitude]);
+        
+        try {
+          const response = await fetch(
+            `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=2a746a0ddbd94c3a9eef0823539c7c1a`
+          );
+          const data = await response.json();
+          
+          if (data.results && data.results.length > 0) {
+            const address = data.results[0].formatted;
+            setLocation(address);
+            form.setValue("location", address, {
+              shouldValidate: true,
+              shouldDirty: true,
+              shouldTouch: true,
+            });
+          } else {
+            form.setError("location", {
+              message: "Unable to retrieve address from coordinates.",
+            });
+          }
+        } catch (error) {
+          form.setError("location", {
+            message: "Error fetching address. Please enter manually.",
+          });
+        } finally {
+          setIsDetectingLocation(false);
+        }
+      },
+      (error) => {
+        let errorMessage = "Location detection failed. ";
+        
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            errorMessage += "Please enable location permissions in your browser settings.";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMessage += "Location information is unavailable. Please enter manually.";
+            break;
+          case error.TIMEOUT:
+            errorMessage += "Location request timed out. Please try again or enter manually.";
+            break;
+          default:
+            errorMessage += "Please enter location manually.";
+            break;
+        }
+        
+        form.setError("location", { message: errorMessage });
+        setIsDetectingLocation(false);
+      },
+      options
+    );
   };
 
   const onSubmit = async (data: FormValues) => {
@@ -143,9 +169,11 @@ const ReportIncident: React.FC = () => {
         setIsSuccess(true);
       } else {
         setSubmissionStatus("Failed to submit report. Please try again later.");
+        console.log("Error response:", await response.json());
       }
     } catch (error) {
       setSubmissionStatus("Failed to submit report. Please try again later.");
+      console.log(error)
     } finally {
       setIsLoading(false);
     }
@@ -302,7 +330,7 @@ const ReportIncident: React.FC = () => {
       </Card>
 
       {submissionStatus && (
-        <p className="mt-4 text-center text-sm text-gray-600">
+        <p className="mt-4 text-center text-sm text-red-600">
           {submissionStatus}
         </p>
       )}

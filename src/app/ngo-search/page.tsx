@@ -6,7 +6,6 @@ import NgoCard from "../../ui/NgoCard";
 import api from "../utils/api";
 import Loader from "../../ui/Loader";
 import dynamic from "next/dynamic";
-import AutoDetectLocation from "../_components/ngo-search/AutoDetectLocation";
 
 const MapWithNoSSR = dynamic(() => import("../_components/Map"), {
   ssr: false,
@@ -27,13 +26,13 @@ type NGO = {
   ratings: number;
 };
 
-type ApiResponse = NGO[] | { message: string };
+// type ApiResponse = NGO[] | { message: string };
 
 const SearchPage: React.FC = () => {
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [assistancetype, setAssistanceType] = useState("");
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -74,16 +73,20 @@ const SearchPage: React.FC = () => {
     {}
   );
 
-  const handleLocationDetected = (locationData: { city: any; state: any }) => {
-    console.log(locationData.city); // e.g., "New York"
-    console.log(locationData.state);
-  };
+  // const handleLocationDetected = (locationData: { city: any; state: any }) => {
+  //   console.log(locationData.city); // e.g., "New York"
+  //   console.log(locationData.state);
+  // };
+
+  interface LeafletElement extends HTMLElement {
+    _leaflet_id?: number | null;
+  }
 
   useEffect(() => {
     return () => {
-      const mapElement = document.getElementById("map");
-      if (mapElement && (mapElement as any)._leaflet_id) {
-        (mapElement as any)._leaflet_id = null;
+      const mapElement = document.getElementById("map") as LeafletElement;
+      if (mapElement && mapElement._leaflet_id) {
+        mapElement._leaflet_id = null;
       }
     };
   }, []);

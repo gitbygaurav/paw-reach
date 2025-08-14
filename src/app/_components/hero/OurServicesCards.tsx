@@ -48,6 +48,7 @@ const OurServicesCards: React.FC = () => {
           <div className="relative h-48 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
             <img
+              loading="lazy"
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
               src={card.src}
               alt={card.title}

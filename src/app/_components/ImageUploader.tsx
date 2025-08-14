@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { ImageKitProvider, IKUpload } from "imagekitio-next";
 import api from "../utils/api";
-import Image from "next/image";
 
 const urlEndpoint = process.env.NEXT_PUBLIC_URL_ENDPOINT;
 const publicKey = process.env.NEXT_PUBLIC_PUBLIC_KEY;
@@ -41,13 +40,11 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onUploadComplete }) => {
   const [preview, setPreview] = useState<string | null>(null);
 
   const onError = (err: any) => {
-    console.error("Error", err);
     setError("Failed to upload image. Please try again.");
     setIsUploading(false);
   };
 
   const onSuccess = (res: any) => {
-    console.log("Success", res);
     const imageUrl = res.url;
     setUploadedUrl(imageUrl);
     setIsUploading(false);
@@ -113,6 +110,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onUploadComplete }) => {
       {uploadedUrl || preview ? (
         <div className="relative flex h-64 rounded-lg overflow-hidden group">
           <img
+            loading="lazy"
             src={uploadedUrl || preview || undefined}
             alt="Uploaded image"
             className="object-cover rounded-lg"

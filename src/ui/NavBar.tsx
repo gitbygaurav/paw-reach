@@ -11,9 +11,9 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  interface IsActiveFn {
-    (pathname: string): boolean;
-  }
+  // interface IsActiveFn {
+  //   (pathname: string): boolean;
+  // }
 
   // const isActive: IsActiveFn = (pathname) =>
   //   (router as { pathname?: string }).pathname === pathname;

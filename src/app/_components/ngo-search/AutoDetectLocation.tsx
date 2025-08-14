@@ -37,7 +37,7 @@ const AutoDetectLocation: React.FC<AutoDetectLocationProps> = ({
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [location, setLocation] = useState<LocationData | null>(null);
+  // const [location, setLocation] = useState<LocationData | null>(null);
 
   const getGeolocation = (): Promise<GeolocationPosition> => {
     return new Promise((resolve, reject) => {
@@ -131,7 +131,7 @@ const AutoDetectLocation: React.FC<AutoDetectLocationProps> = ({
         coordinates: { latitude, longitude }
       };
 
-      setLocation(locationData);
+      // setLocation(locationData);
       
       // Call the callback function if provided
       if (onLocationDetected) {
