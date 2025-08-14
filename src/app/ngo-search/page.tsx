@@ -102,9 +102,11 @@ const SearchPage: React.FC = () => {
 
     if (!state || !city) {
       return (
-        <p className="col-span-3 text-center font-bold text-gray-500">
-          Please select a state and city or click nearby to get NGOs
-        </p>
+        <>
+          <p className="col-span-3 text-center font-bold text-gray-500">
+            Please select a state and city or click nearby to get NGOs
+          </p>
+        </>
       );
     }
 
@@ -134,7 +136,7 @@ const SearchPage: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-100 flex flex-col items-center px-8 pt-32 pb-8">
+    <div className="bg-gray-100 w-full flex flex-col items-center px-8 pt-32 pb-8">
       <div className="w-full flex justify-between">
         <h2 className="text-2xl font-bold self-start">Search for NGOs</h2>
         {/* <AutoDetectLocation onLocationDetected={handleLocationDetected} /> */}
@@ -187,6 +189,7 @@ const SearchPage: React.FC = () => {
       <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
         {renderContent()}
       </div>
+      <p className="text-sm text-red-500 text-center mt-2">******We are having very less cities available for search.(For testing purpose please select <b>State: Tamil Nadu</b>  and <b>City: Chennai</b>)******</p>
       {/*  Map */}
       <h2 className="self-start text-2xl font-bold mt-4">Nearby NGOs</h2>
       <MapWithNoSSR data={Array.isArray(data) ? data : []} />
