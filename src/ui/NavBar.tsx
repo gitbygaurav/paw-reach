@@ -11,17 +11,18 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  interface IsActiveFn {
-    (pathname: string): boolean;
-  }
+  // interface IsActiveFn {
+  //   (pathname: string): boolean;
+  // }
 
-  const isActive: IsActiveFn = (pathname) =>
-    (router as { pathname?: string }).pathname === pathname;
+  // const isActive: IsActiveFn = (pathname) =>
+  //   (router as { pathname?: string }).pathname === pathname;
   return (
     <nav className="w-full px-4 fixed top-4 z-50 ">
       <div className="w-full bg-[#E0FFE0] flex items-center justify-between text-lg px-5 rounded-md shadow-md">
         <Link href="/" className="text-xl font-bold">
           <img
+            loading="lazy"
             className="h-20 w-20"
             src="/paw-reach-logo.png"
             alt="paw-reach-logo"
@@ -49,36 +50,9 @@ const Navbar: React.FC = () => {
             </svg>
           </button>
         </div>
-        {/* <ul className={`md:flex gap-6 ${isMenuOpen ? 'block' : 'hidden'} md:block`}>
-        <li>
-          <Link className={isActive('/') ? 'text-green-500' : ''} href="/">
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link href="/about">
-            About
-          </Link>
-        </li>
-        <li>
-          <Link href="/ngo-list">
-            NGOs
-          </Link>
-        </li>
-        <li>
-          <Link href="/join-us-as-ngo">
-           Join Us
-          </Link>
-        </li>
-        <li className='md:hidden'>
-          <Link href="/find-nearby-ngos">
-            Find Nearby NGOs
-          </Link>
-        </li>
-      </ul> */}
         <button
-          onClick={() => router.push("/search")}
-          className="hidden md:block bg-[#00796B] text-white px-4 py-2 rounded-lg hover:bg-[#009688] text-lg font-semibold"
+          onClick={() => router.push("/ngo-search")}
+          className="hidden md:block bg-[#00796B] text-white px-4 py-2 rounded-lg hover:bg-[#009688] text-lg font-semibold cursor-pointer"
         >
           Find Nearby NGOs
         </button>
