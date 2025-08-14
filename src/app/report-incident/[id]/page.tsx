@@ -113,7 +113,7 @@ const ReportIncident: React.FC = () => {
           }
         } catch (error) {
           form.setError("location", {
-            message: "Error fetching address. Please enter manually.",
+            message: "Error fetching address. Please enter manually.(In case you are using macOS we are having some issues on MacOS)",
           });
         } finally {
           setIsDetectingLocation(false);
@@ -133,7 +133,7 @@ const ReportIncident: React.FC = () => {
             errorMessage += "Location request timed out. Please try again or enter manually.";
             break;
           default:
-            errorMessage += "Please enter location manually.";
+            errorMessage += "Please enter location manually.(In case you are using macOS we are having some issues on MacOS)";
             break;
         }
         
@@ -189,7 +189,7 @@ const ReportIncident: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-100 px-5 pt-28 pb-5 relative">
+    <div className="bg-gray-100 h-screen px-5 pt-28 pb-5 relative">
       {isLoading && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white p-8 rounded-lg shadow-xl flex flex-col items-center">
@@ -251,6 +251,7 @@ const ReportIncident: React.FC = () => {
                           setLocation(e.target.value);
                           field.onChange(e);
                         }}
+                        disabled
                       />
                     </FormControl>
                     <FormMessage />
