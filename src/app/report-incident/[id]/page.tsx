@@ -206,7 +206,7 @@ const ReportIncident: React.FC = () => {
           <div className="bg-white p-8 rounded-lg shadow-xl max-w-md text-center">
             <h3 className="text-2xl font-bold text-green-600 mb-4">Thank You!</h3>
             <p className="text-gray-600 mb-6 italic">
-              "{quotes[Math.floor(Math.random() * quotes.length)]}"
+              &ldquo;{quotes[Math.floor(Math.random() * quotes.length)]}&rdquo;
             </p>
             <button
               onClick={handleContinue}
@@ -309,7 +309,7 @@ const ReportIncident: React.FC = () => {
                 name="contactInfo"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Reporter's Contact No.</FormLabel>
+                    <FormLabel>Reporter&apos;s Contact No.</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Your contact information"
