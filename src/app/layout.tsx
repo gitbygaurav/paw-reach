@@ -17,8 +17,8 @@ export const metadata: Metadata = {
   title: "Paw Reach",
   description: "Saving Animals, saving lives.",
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
+    icon: "/favicon-v2.ico",
+    shortcut: "/favicon-v2.ico",
     apple: "/apple-touch-icon.png",
   },
 };
